@@ -23,12 +23,6 @@ with open('letters.txt', 'r') as f:
                     raise ValueError(f'Uh-uh: {curr_letter.letter} {chars}')
                 curr_letter.rows.append(chars)
 
-# for letter in letters:
-#     if len(letter.rows) > 0:
-#         print(letter.letter)
-#         for row in letter.rows:
-#             print(''.join(row))
-
 def print_text(text: str) -> None:
     text_letters = [[] for t in text]
     for i, char in enumerate(text):
@@ -38,8 +32,14 @@ def print_text(text: str) -> None:
 
     lines = ['' for r in range(len(text_letters[0]))]
     for i, line in enumerate(lines):
-        for t in text_letters:
+        for k, t in enumerate(text_letters):
             line += t[i]
         print(line)
 
-print_text('back')
+print_text('AaBbCcDdEeFfGgHhIiJjKkLlMm')
+print_text('NnOoPpQqRrSsTtUuVvWwXxYyZz')
+print_text(' .,!#<>')
+print_text('The Quick Brown Fox Jumps')
+print_text('Over The Lazy Dog!')
+print_text('doot doot')
+print_text('Hello, world!')
