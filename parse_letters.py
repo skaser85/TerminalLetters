@@ -2,31 +2,34 @@ from typing import List
 from dataclasses import dataclass, field
 
 @dataclass
-class Letter:
-    letter: str
+class Character:
+    character: str
+    description: str
     rows: List[str] = field(default_factory=list)
 
 letters = []
 
 with open('letters.txt', 'r') as f:
     data = f.read().splitlines()
-    curr_letter = ''
+    curr_char = ''
     for line in data:
         if line.startswith('==='):
-            if line[3] != curr_letter:
-                curr_letter = Letter(line[3])
-                letters.append(curr_letter)
+            char = line[3]
+            description = line[5:]
+            if char != curr_char:
+                curr_char = Character(char, description)
+                letters.append(curr_char)
         else:
-            if curr_letter != '':
+            if curr_char != '':
                 chars = [char for char in line]
                 if len(chars) != 6:
-                    raise ValueError(f'Uh-uh: {curr_letter.letter} {chars}')
-                curr_letter.rows.append(chars)
+                    raise ValueError(f'Uh-uh: {curr_char.character} {chars}')
+                curr_char.rows.append(chars)
 
 def print_text(text: str) -> None:
     text_letters = [[] for t in text]
     for i, char in enumerate(text):
-        letter = [l for l in letters if l.letter == char][0]
+        letter = [l for l in letters if l.character == char][0]
         for k in range(len(letter.rows)):
             text_letters[i].append(''.join(letter.rows[k]))
 
@@ -38,8 +41,10 @@ def print_text(text: str) -> None:
 
 print_text('AaBbCcDdEeFfGgHhIiJjKkLlMm')
 print_text('NnOoPpQqRrSsTtUuVvWwXxYyZz')
-print_text(' .,!#<>')
+print_text(' .,!#<>-')
 print_text('The Quick Brown Fox Jumps')
 print_text('Over The Lazy Dog!')
 print_text('doot doot')
 print_text('Hello, world!')
+print_text('1,808,123,456')
+print_text('937-214-3392')
